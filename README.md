@@ -224,17 +224,30 @@ git push origin feature/add-spending-analysis
 
 ## 🐳 Docker
 
-### Local Development
+### Quick Start (Docker)
 ```bash
-# Build all services
-docker-compose build
+# Build all Docker images
+./scripts/docker-build.sh
 
 # Start all services
-docker-compose up
+./scripts/docker-up.sh
 
-# View logs
-docker-compose logs -f frontend
+# View logs (all services or specific service)
+./scripts/docker-logs.sh
+./scripts/docker-logs.sh backend
+
+# Stop all services
+./scripts/docker-down.sh
 ```
+
+### Docker Utilities
+| Command | Purpose |
+|---------|---------|
+| `./scripts/docker-build.sh` | Build all service images |
+| `./scripts/docker-up.sh` | Start all containers |
+| `./scripts/docker-down.sh` | Stop all containers |
+| `./scripts/docker-logs.sh [service]` | View container logs |
+| `./scripts/docker-rebuild.sh` | Clean rebuild (no cache) |
 
 ### Service Status
 ```bash
@@ -242,11 +255,37 @@ docker-compose logs -f frontend
 curl http://localhost:4200        # Frontend
 curl http://localhost:8080/health # Backend
 curl http://localhost:8001/health # Login
+
+# Or use docker-compose directly
+docker-compose ps
+docker-compose logs -f
 ```
+
+### Manual Docker Commands
+```bash
+# Build all images manually
+docker-compose build
+
+# Start all services
+docker-compose up
+
+# Start specific service
+docker-compose up backend
+
+# Enter running container
+docker-compose exec backend bash
+docker-compose exec frontend sh
+
+# Remove containers and volumes
+docker-compose down -v
+```
+
+For comprehensive Docker guide, see **[DOCKER.md](./DOCKER.md)**
 
 ## 📚 Documentation
 
 - **[CLAUDE.md](./CLAUDE.md)** - Development guide & commands
+- **[DOCKER.md](./DOCKER.md)** - Docker setup & deployment guide
 - **[Backend README](./services/backend/README.md)** - Spring Boot docs
 - **[Frontend README](./services/frontend/README.md)** - Angular docs
 - **[Login Service README](./services/login/README.md)** - Auth docs

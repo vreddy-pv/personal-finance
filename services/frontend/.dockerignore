@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+.git/
+.gitignore
+.vscode/
+.idea/
+.angular/
+*.log
+.DS_Store
+Thumbs.db
+*.iml
+.npm/
+.nyc_output/
+lcov-report/

@@ -1,0 +1,15 @@
+target/
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+*.class
+*.jar
+node_modules/
+.mvn/wrapper/maven-wrapper.jar
+.DS_Store
+Thumbs.db
+*.iml
+.gradle/
+.m2/
