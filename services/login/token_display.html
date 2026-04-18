@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Successful</title>
+</head>
+<body>
+  <h1>Login Successful</h1>
+  <p>Your token is:</p>
+  <p id="token" style="word-break: break-all; font-weight: bold;"></p>
+  <p>Please copy this token and share it with Claude to complete authentication.</p>
+
+  <script>
+    // Read token from URL query parameters
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (token) {
+      document.getElementById('token').innerText = token;
+    } else {
+      document.getElementById('token').innerText = 'Token not found. Please try logging in again.';
+    }
+  </script>
+</body>
+</html>

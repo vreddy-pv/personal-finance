@@ -1,0 +1,17 @@
+.add-transaction-dialog .mat-dialog-container {
+    padding: 30px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .mat-dialog-actions {
+    justify-content: flex-end;
+  }

@@ -1,0 +1,96 @@
+# Build artifacts
+target/
+dist/
+build/
+*.egg-info/
+*.class
+*.jar
+*.war
+
+# Dependencies
+node_modules/
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg
+.m2/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+*.sublime-workspace
+*.sublime-project
+.DS_Store
+.env.local
+*.log
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# Test Coverage
+coverage/
+htmlcov/
+.coverage
+.coverage.*
+*.cover
+lcov-report/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# Cache
+.cache/
+.pytest_cache/
+.gradle/
+.npm/
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+
+# Temporary
+tmp/
+temp/
+.tmp/
+*.tmp
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Spring Boot
+.mvn/wrapper/maven-wrapper.jar
+
+# Angular
+/services/frontend/dist/
+/services/frontend/.angular/
+
+# Python
+dist/
+build/
+*.egg-info/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Docker
+.dockerignore
+
+# Git
+.gitkeep

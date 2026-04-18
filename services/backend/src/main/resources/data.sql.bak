@@ -1,0 +1,2 @@
+INSERT INTO _user (id, email, password, role, username) VALUES (1, 'admin@mail.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'ADMIN', 'admin');
+INSERT INTO _user (id, email, password, role, username) VALUES (2, 'user@mail.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'USER', 'user');

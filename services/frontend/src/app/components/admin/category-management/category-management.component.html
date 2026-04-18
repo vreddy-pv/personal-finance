@@ -1,0 +1,8 @@
+<h2>Category Management</h2>
+<div>
+  <input type="text" [(ngModel)]="newCategoryName" placeholder="New category name">
+  <button (click)="addCategory()">Add Category</button>
+</div>
+<ul>
+  <li *ngFor="let category of categories">{{ category.name }}</li>
+</ul>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login to Personal Finance Manager</h2>
+    <form id="loginForm" action="/authenticate" method="post">
+        <input type="hidden" id="state" name="state"/>
+        <input type="hidden" id="callback" name="callback"/>
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username">
+        </div>
+        <div style="margin-top: 1rem;">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password">
+        </div>
+        <div style="margin-top: 1rem;">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('state').value = params.get('state');
+        document.getElementById('callback').value = params.get('callback');
+    </script>
+</body>
+</html>

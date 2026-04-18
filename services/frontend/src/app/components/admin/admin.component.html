@@ -1,0 +1,15 @@
+<h1>Admin Dashboard</h1>
+
+<div class="tabs">
+  <button (click)="setActiveTab('users')" [class.active]="activeTab === 'users'">User Management</button>
+  <button (click)="setActiveTab('categories')" [class.active]="activeTab === 'categories'">Category Management</button>
+</div>
+
+<div [hidden]="activeTab !== 'users'">
+  <app-user-management></app-user-management>
+</div>
+
+<div [hidden]="activeTab !== 'categories'">
+  <app-category-management></app-category-management>
+</div>
+
