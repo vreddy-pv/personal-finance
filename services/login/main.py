@@ -2,11 +2,12 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 import httpx
 import uvicorn
+import os
 
 app = FastAPI()
 
-# Base URL for the Spring Boot backend
-BASE_URL = "http://localhost:8080"
+# Base URL for the Spring Boot backend - use env var for Docker, fallback to localhost
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8080")
 
 @app.get("/health")
 async def health():
