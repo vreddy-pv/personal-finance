@@ -14,7 +14,17 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category addCategory(Category category) {
-        if (category == null || category.getName() == null || category.getName().isBlank()) {
+        if (category == null) {
+            throw new IllegalArgumentException("Category cannot be null");
+        }
+
+        // If name is missing but ID exists, look up existing category by ID
+        if ((category.getName() == null || category.getName().isBlank()) && category.getId() != null) {
+            return categoryRepository.findById(category.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Category with ID " + category.getId() + " not found"));
+        }
+
+        if (category.getName() == null || category.getName().isBlank()) {
             throw new IllegalArgumentException("Category name cannot be null or empty");
         }
 
