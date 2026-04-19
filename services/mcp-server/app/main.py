@@ -51,6 +51,21 @@ def set_token(token: str) -> str:
     AUTH_TOKEN = token
     return "Token set successfully."
 
+@app.tool()
+async def authenticate_admin(username: str, password: str) -> str:
+    """Authenticates as admin user and sets token. Use username: admin, password: admin123"""
+    global AUTH_TOKEN
+    async with httpx.AsyncClient() as client:
+        payload = {"username": username, "password": password}
+        res = await client.post(f"{BASE_URL}/api/auth/authenticate", json=payload)
+        if res.status_code == 200:
+            data = res.json()
+            AUTH_TOKEN = data.get("token")
+            role = data.get("role", "USER")
+            return f"✅ Authenticated as {username} ({role}). Token set successfully."
+        else:
+            return f"❌ Authentication failed: {res.text}"
+
 
 
 
@@ -182,6 +197,67 @@ async def delete_user(username: str) -> str:
         res = await client.delete(f"{BASE_URL}/api/users/{username}")
         res.raise_for_status()
         return "User deleted successfully."
+
+@app.tool()
+async def get_admin_summary() -> str:
+    """Get admin financial summary - requires ADMIN authentication. Shows total transactions, income, expenses, and category breakdown."""
+    if not AUTH_TOKEN:
+        return "❌ You must be logged in as ADMIN. Use 'authenticate_admin' tool with admin/admin123"
+    headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
+    async with httpx.AsyncClient(headers=headers) as client:
+        try:
+            # Get all transactions
+            res = await client.get(f"{BASE_URL}/api/transactions")
+            res.raise_for_status()
+            transactions = res.json()
+
+            # Calculate summary
+            total_income = 0
+            total_expenses = 0
+            category_breakdown = {}
+
+            for t in transactions:
+                amount = float(t.get('amount', 0))
+                tx_type = t.get('type', 'EXPENSE').upper()
+                category = t.get('category', {}).get('name', 'Uncategorized') if t.get('category') else 'Uncategorized'
+
+                if tx_type == 'INCOME':
+                    total_income += amount
+                else:
+                    total_expenses += amount
+
+                if category not in category_breakdown:
+                    category_breakdown[category] = 0
+                category_breakdown[category] += amount
+
+            net_balance = total_income - total_expenses
+            avg_transaction = sum(float(t.get('amount', 0)) for t in transactions) / len(transactions) if transactions else 0
+
+            # Format summary
+            summary = f"""
+📊 **ADMIN FINANCIAL SUMMARY**
+================================
+
+📈 **Transaction Overview:**
+   • Total Transactions: {len(transactions)}
+   • Average Transaction: ${avg_transaction:.2f}
+
+💰 **Financial Summary:**
+   • Total Income: ${total_income:.2f}
+   • Total Expenses: ${total_expenses:.2f}
+   • Net Balance: ${net_balance:.2f}
+
+📑 **Spending by Category:**"""
+
+            if category_breakdown:
+                for category, amount in sorted(category_breakdown.items(), key=lambda x: x[1], reverse=True):
+                    summary += f"\n   • {category}: ${amount:.2f}"
+            else:
+                summary += "\n   • No transactions yet"
+
+            return summary
+        except Exception as e:
+            return f"❌ Error fetching admin summary: {str(e)}"
 
 if __name__ == "__main__":
     #app.run(transport="http", host="127.0.0.1", port=8000, stateless=True)

@@ -162,12 +162,14 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8001
 ```
 
-**MCP Server**
+**MCP Server (Claude AI Integration)**
 ```bash
 cd services/mcp-server
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
+
+📖 **[→ Full MCP Setup Guide](./MCP_QUICK_START.md)** - Configure Claude to use your finance system (5 min)
 
 ### Code Organization
 
