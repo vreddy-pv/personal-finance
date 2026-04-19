@@ -72,74 +72,85 @@
 }
 
 // ════════ TOOLBAR ════════
-.vrgt-toolbar {
-  background: linear-gradient(90deg, $vrgt-dark-purple 0%, darken($vrgt-medium-purple, 3%) 100%);
-  color: white;
-  box-shadow: 0 2px 8px rgba($vrgt-dark-purple, 0.15);
-  height: 64px;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
+::ng-deep {
+  .vrgt-toolbar {
+    background: linear-gradient(90deg, $vrgt-dark-purple 0%, darken($vrgt-medium-purple, 3%) 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba($vrgt-dark-purple, 0.15);
+    height: 64px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
 
-  // Menu Button
-  .menu-button {
-    color: white;
-    margin-right: 16px;
-    flex-shrink: 0;
+    // Menu Button
+    .menu-button {
+      color: white;
+      margin-right: 16px;
+      flex-shrink: 0;
+      min-width: 40px;
 
-    &:hover {
-      background-color: rgba(white, 0.1);
-    }
-  }
-
-  // Toolbar Title
-  .toolbar-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: 8px;
-    flex-shrink: 0;
-
-    .toolbar-logo {
-      height: 40px;
-      width: auto;
-      max-width: 150px;
-      object-fit: contain;
-      display: block;
+      &:hover {
+        background-color: rgba(white, 0.1);
+      }
     }
 
-    .app-title-text {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
+    // Toolbar Title
+    .toolbar-title {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px;
+      margin-left: 8px;
+      flex-shrink: 0;
+      height: 100%;
+
+      .toolbar-logo {
+        height: 40px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .app-title-text {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        color: white;
+        flex-shrink: 0;
+      }
     }
-  }
 
-  // Spacer - takes up remaining space and pushes items to right
-  .spacer {
-    flex: 1 1 auto;
-  }
-
-  // Action Buttons & User Menu
-  .user-menu-button {
-    color: white;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-
-    &:hover {
-      background-color: rgba(white, 0.15);
-      transform: scale(1.05);
+    // Spacer - takes up remaining space and pushes items to right
+    .spacer {
+      flex: 1 1 auto !important;
+      min-width: 16px;
     }
 
-    &:active {
-      transform: scale(0.95);
-    }
+    // Action Buttons & User Menu
+    .user-menu-button {
+      color: white;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      min-width: 40px;
 
-    mat-icon {
-      font-size: 24px;
-      width: 24px;
-      height: 24px;
+      &:hover {
+        background-color: rgba(white, 0.15);
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        color: white;
+      }
     }
   }
 }
