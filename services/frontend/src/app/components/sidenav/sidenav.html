@@ -2,7 +2,11 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true">
     <!-- Sidebar Header -->
     <div class="sidebar-header">
-      <img [src]="vrgtLogo" alt="VRGT Logo" class="sidebar-logo">
+      <img [src]="vrgtLogo" alt="VRGT Logo" class="sidebar-logo" (error)="onLogoError()">
+      <div class="logo-fallback" *ngIf="logoFailed">
+        <div style="font-weight: 700; font-size: 18px; color: #26215C;">VRGT</div>
+        <div style="font-size: 10px; color: #888780;">Finance</div>
+      </div>
     </div>
 
     <!-- Navigation Menu -->

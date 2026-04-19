@@ -39,6 +39,7 @@ import { VRGT_LOGOS, VRGT_BRANDING } from '../../shared/constants/branding.const
 export class SidenavComponent {
   user: User | null = null;
   isAdmin = false;
+  logoFailed = false;
 
   // VRGT Branding
   vrgtLogo = VRGT_LOGOS.horizontal;
@@ -69,5 +70,10 @@ export class SidenavComponent {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  onLogoError(): void {
+    console.warn('Failed to load VRGT logo from:', this.vrgtLogo);
+    this.logoFailed = true;
   }
 }
