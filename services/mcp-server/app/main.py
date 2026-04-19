@@ -260,5 +260,4 @@ async def get_admin_summary() -> str:
             return f"❌ Error fetching admin summary: {str(e)}"
 
 if __name__ == "__main__":
-    #app.run(transport="http", host="127.0.0.1", port=8000, stateless=True)
-    app.run()
+    app.run(transport="http", host="0.0.0.0", port=8000, stateless=True)
