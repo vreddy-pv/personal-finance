@@ -24,11 +24,17 @@ public class TransactionService {
 
         // Ensure the category is managed
         if (transaction.getCategory() != null) {
+            System.out.println("DEBUG: Adding transaction with category: " + transaction.getCategory().getName() + " (ID: " + transaction.getCategory().getId() + ")");
             Category managedCategory = categoryService.addCategory(transaction.getCategory());
             transaction.setCategory(managedCategory);
+            System.out.println("DEBUG: Managed category: " + managedCategory.getName() + " (ID: " + managedCategory.getId() + ")");
+        } else {
+            System.out.println("DEBUG: Adding transaction with NULL category");
         }
 
-        return transactionRepository.save(transaction);
+        Transaction saved = transactionRepository.save(transaction);
+        System.out.println("DEBUG: Saved transaction with category: " + (saved.getCategory() != null ? saved.getCategory().getName() : "NULL"));
+        return saved;
     }
 
     public List<Transaction> getAllTransactions() {
@@ -51,11 +57,18 @@ public class TransactionService {
 
             // Ensure the category is managed
             if (transaction.getCategory() != null) {
+                System.out.println("DEBUG: Updating transaction ID " + id + " with category: " + transaction.getCategory().getName() + " (ID: " + transaction.getCategory().getId() + ")");
                 Category managedCategory = categoryService.addCategory(transaction.getCategory());
                 existingTransaction.setCategory(managedCategory);
+                System.out.println("DEBUG: Updated to managed category: " + managedCategory.getName() + " (ID: " + managedCategory.getId() + ")");
+            } else {
+                System.out.println("DEBUG: Updating transaction ID " + id + " with NULL category");
+                existingTransaction.setCategory(null);
             }
 
-            return transactionRepository.save(existingTransaction);
+            Transaction saved = transactionRepository.save(existingTransaction);
+            System.out.println("DEBUG: Saved updated transaction with category: " + (saved.getCategory() != null ? saved.getCategory().getName() : "NULL"));
+            return saved;
         }).orElse(null);
     }
 

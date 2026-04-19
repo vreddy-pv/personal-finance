@@ -23,8 +23,11 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByUser(User user);
-    Optional<Transaction> findByIdAndUser(Long id, User user);
+    @Query("SELECT DISTINCT t FROM Transaction t LEFT JOIN FETCH t.category WHERE t.user = :user ORDER BY t.date DESC")
+    List<Transaction> findByUser(@Param("user") User user);
+
+    @Query("SELECT t FROM Transaction t LEFT JOIN FETCH t.category WHERE t.id = :id AND t.user = :user")
+    Optional<Transaction> findByIdAndUser(@Param("id") Long id, @Param("user") User user);
 
     @Query("SELECT new com.example.financemanager.dto.SummaryDto("
             + "COALESCE(SUM(CASE WHEN t.type = 'INCOME' THEN t.amount ELSE 0 END), 0) AS totalIncome, "
