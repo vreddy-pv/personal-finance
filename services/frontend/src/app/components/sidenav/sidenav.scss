@@ -78,11 +78,14 @@
   box-shadow: 0 2px 8px rgba($vrgt-dark-purple, 0.15);
   height: 64px;
   padding: 0 16px;
+  display: flex;
+  align-items: center;
 
   // Menu Button
   .menu-button {
     color: white;
     margin-right: 16px;
+    flex-shrink: 0;
 
     &:hover {
       background-color: rgba(white, 0.1);
@@ -93,10 +96,9 @@
   .toolbar-title {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin-left: 16px;
-    flex: 0 0 auto;
+    gap: 12px;
+    margin-left: 8px;
+    flex-shrink: 0;
 
     .toolbar-logo {
       height: 40px;
@@ -105,9 +107,16 @@
       object-fit: contain;
       display: block;
     }
+
+    .app-title-text {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
   }
 
-  // Spacer
+  // Spacer - takes up remaining space and pushes items to right
   .spacer {
     flex: 1 1 auto;
   }
@@ -116,8 +125,7 @@
   .user-menu-button {
     color: white;
     transition: all 0.3s ease;
-    margin-left: 16px;
-    margin-right: 8px;
+    flex-shrink: 0;
 
     &:hover {
       background-color: rgba(white, 0.15);
