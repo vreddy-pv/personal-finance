@@ -1,4 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+/* VRGT Brand Styles - Vertex Realm Global Technologies */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import 'styles/vrgt-colors.scss';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Root styles with VRGT branding */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+  color: $vrgt-charcoal;
+}
+
+/* Global Material theme overrides */
+.mat-mdc-card {
+  box-shadow: 0 2px 8px rgba($vrgt-dark-purple, 0.1);
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba($vrgt-dark-purple, 0.15);
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button {
+  &.mat-primary {
+    background-color: $vrgt-medium-purple;
+    color: white;
+
+    &:hover {
+      background-color: darken($vrgt-medium-purple, 5%);
+    }
+  }
+
+  &.mat-accent {
+    background-color: $vrgt-teal;
+    color: white;
+
+    &:hover {
+      background-color: darken($vrgt-teal, 5%);
+    }
+  }
+}
+
+.mat-mdc-form-field {
+  &.mat-focused {
+    .mat-mdc-form-field-focus-overlay {
+      background-color: rgba($vrgt-medium-purple, 0.05);
+    }
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $vrgt-light-purple;
+  border-radius: 4px;
+
+  &:hover {
+    background: $vrgt-medium-purple;
+  }
+}

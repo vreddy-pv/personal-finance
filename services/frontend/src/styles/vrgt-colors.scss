@@ -1,0 +1,51 @@
+// VRGT Brand Color Palette
+// Vertex Realm Global Technologies
+
+// Primary Colors
+$vrgt-dark-purple: #26215C;      // Deep purple base
+$vrgt-medium-purple: #534AB7;    // Primary purple
+$vrgt-light-purple: #AFA9EC;     // Accent purple
+$vrgt-teal: #1D9E75;             // Secondary teal/green
+$vrgt-amber: #EF9F27;            // Accent gold/amber
+$vrgt-light-amber: #FAC775;      // Lighter amber
+
+// Supporting Grays
+$vrgt-charcoal: #2C2C2A;
+$vrgt-gray: #888780;
+$vrgt-light-gray: #D3D1C7;
+$vrgt-off-white: #F1EFE8;
+$vrgt-very-light: #EEEDFE;
+
+// Semantic Colors
+$vrgt-success: $vrgt-teal;
+$vrgt-warning: $vrgt-amber;
+$vrgt-error: #E74C3C;
+$vrgt-info: $vrgt-medium-purple;
+
+// Gradients
+$vrgt-gradient-primary: linear-gradient(90deg, $vrgt-dark-purple 0%, $vrgt-medium-purple 55%, $vrgt-teal 100%);
+$vrgt-gradient-hex: linear-gradient(135deg, $vrgt-dark-purple 0%, #3C3489 100%);
+
+// CSS Custom Properties (for use in TypeScript/Angular)
+:root {
+  // Primary Colors
+  --vrgt-dark-purple: #{$vrgt-dark-purple};
+  --vrgt-medium-purple: #{$vrgt-medium-purple};
+  --vrgt-light-purple: #{$vrgt-light-purple};
+  --vrgt-teal: #{$vrgt-teal};
+  --vrgt-amber: #{$vrgt-amber};
+  --vrgt-light-amber: #{$vrgt-light-amber};
+
+  // Supporting Colors
+  --vrgt-charcoal: #{$vrgt-charcoal};
+  --vrgt-gray: #{$vrgt-gray};
+  --vrgt-light-gray: #{$vrgt-light-gray};
+  --vrgt-off-white: #{$vrgt-off-white};
+  --vrgt-very-light: #{$vrgt-very-light};
+
+  // Semantic Colors
+  --vrgt-success: #{$vrgt-success};
+  --vrgt-warning: #{$vrgt-warning};
+  --vrgt-error: #{$vrgt-error};
+  --vrgt-info: #{$vrgt-info};
+}
