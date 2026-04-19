@@ -1,0 +1,646 @@
+// ════════════════════════════════════════════════════════════════
+// VRGT Component Styling Library
+// Reusable SCSS mixins and classes for VRGT-themed components
+// ════════════════════════════════════════════════════════════════
+
+@import './vrgt-colors.scss';
+
+// ════════ DESIGN TOKENS ════════
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+$transition-smooth: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Elevations
+$elevation-1: 0 2px 8px rgba($vrgt-dark-purple, 0.1);
+$elevation-2: 0 4px 12px rgba($vrgt-dark-purple, 0.15);
+$elevation-3: 0 8px 16px rgba($vrgt-dark-purple, 0.2);
+
+// ════════ MIXINS ════════
+
+// Card with VRGT styling
+@mixin vrgt-card($shadow: $elevation-1) {
+  background: white;
+  border: 1px solid $vrgt-light-gray;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow;
+  transition: $transition-smooth;
+
+  &:hover {
+    box-shadow: $elevation-2;
+    transform: translateY(-2px);
+  }
+}
+
+// Button with VRGT styling
+@mixin vrgt-button($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: $transition-smooth;
+
+  &:hover {
+    background-color: darken($bg-color, 5%);
+    box-shadow: 0 2px 8px rgba($bg-color, 0.3);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+// Badge with VRGT styling
+@mixin vrgt-badge($bg-color, $text-color: white) {
+  display: inline-block;
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 4px 12px;
+  border-radius: $border-radius-lg;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+// Input field with VRGT styling
+@mixin vrgt-input() {
+  border: 1px solid $vrgt-light-gray;
+  border-radius: $border-radius-sm;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: $transition-smooth;
+
+  &:hover {
+    border-color: darken($vrgt-light-gray, 5%);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $vrgt-medium-purple;
+    box-shadow: 0 0 0 3px rgba($vrgt-medium-purple, 0.1);
+  }
+}
+
+// ════════ BUTTON STYLES ════════
+
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  border: none;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  transition: $transition-smooth;
+  min-height: 36px;
+  padding: 8px 16px;
+
+  // Primary Button
+  &.btn-primary {
+    @include vrgt-button($vrgt-medium-purple);
+  }
+
+  // Secondary Button (Teal)
+  &.btn-secondary {
+    @include vrgt-button($vrgt-teal);
+  }
+
+  // Success Button
+  &.btn-success {
+    @include vrgt-button($vrgt-success);
+  }
+
+  // Warning Button
+  &.btn-warning {
+    @include vrgt-button($vrgt-warning, $vrgt-charcoal);
+  }
+
+  // Danger Button
+  &.btn-danger {
+    @include vrgt-button(#E74C3C);
+  }
+
+  // Outline Button
+  &.btn-outline {
+    background: transparent;
+    border: 2px solid $vrgt-medium-purple;
+    color: $vrgt-medium-purple;
+
+    &:hover {
+      background-color: rgba($vrgt-medium-purple, 0.08);
+    }
+  }
+
+  // Small Button
+  &.btn-sm {
+    min-height: 32px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  // Large Button
+  &.btn-lg {
+    min-height: 44px;
+    padding: 12px 32px;
+    font-size: 16px;
+  }
+
+  // Full Width Button
+  &.btn-block {
+    width: 100%;
+    display: block;
+  }
+
+  // Icon Button
+  &.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Disabled State
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ════════ CARD STYLES ════════
+
+.card {
+  @include vrgt-card();
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+
+  &.card-header {
+    background: linear-gradient(135deg, $vrgt-dark-purple 0%, $vrgt-medium-purple 100%);
+    color: white;
+    padding: $spacing-lg;
+    border-radius: $border-radius-md $border-radius-md 0 0;
+    margin: -#{$spacing-lg} -#{$spacing-lg} $spacing-lg -#{$spacing-lg};
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      color: white;
+      font-weight: 700;
+    }
+  }
+
+  &.card-footer {
+    background: #f9f9f9;
+    padding: $spacing-lg;
+    border-top: 1px solid $vrgt-light-gray;
+    border-radius: 0 0 $border-radius-md $border-radius-md;
+    margin: $spacing-lg -#{$spacing-lg} -#{$spacing-lg} -#{$spacing-lg};
+    text-align: right;
+  }
+
+  .card-title {
+    margin: 0 0 $spacing-md 0;
+    color: $vrgt-dark-purple;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .card-subtitle {
+    margin: 0;
+    color: $vrgt-gray;
+    font-size: 14px;
+  }
+
+  .card-content {
+    p {
+      margin: 0 0 $spacing-md 0;
+      color: $vrgt-charcoal;
+      line-height: 1.6;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// ════════ FORM STYLES ════════
+
+.form-group {
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  font-weight: 500;
+  color: $vrgt-charcoal;
+  font-size: 14px;
+
+  .required {
+    color: #E74C3C;
+    margin-left: 4px;
+  }
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  @include vrgt-input();
+  width: 100%;
+  font-family: inherit;
+
+  &::placeholder {
+    color: $vrgt-light-gray;
+  }
+
+  &:disabled {
+    background-color: #f5f5f5;
+    color: $vrgt-gray;
+    cursor: not-allowed;
+  }
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: monospace;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+// Form Error State
+.form-error {
+  color: #E74C3C;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+
+  &::before {
+    content: '⚠ ';
+  }
+}
+
+// Form Success State
+.form-success {
+  color: $vrgt-success;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+
+  &::before {
+    content: '✓ ';
+  }
+}
+
+// ════════ BADGE STYLES ════════
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: $border-radius-lg;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.badge-primary {
+    @include vrgt-badge($vrgt-medium-purple);
+  }
+
+  &.badge-secondary {
+    @include vrgt-badge($vrgt-teal);
+  }
+
+  &.badge-success {
+    @include vrgt-badge($vrgt-success);
+  }
+
+  &.badge-warning {
+    @include vrgt-badge($vrgt-warning, $vrgt-charcoal);
+  }
+
+  &.badge-danger {
+    @include vrgt-badge(#E74C3C);
+  }
+
+  &.badge-info {
+    @include vrgt-badge($vrgt-info);
+  }
+
+  &.badge-light {
+    @include vrgt-badge($vrgt-very-light, $vrgt-charcoal);
+  }
+}
+
+// ════════ DIVIDER STYLES ════════
+
+.divider {
+  border: none;
+  border-top: 1px solid $vrgt-light-gray;
+  margin: $spacing-lg 0;
+  height: 0;
+
+  &.divider-lg {
+    margin: $spacing-xl 0;
+  }
+
+  &.divider-sm {
+    margin: $spacing-sm 0;
+  }
+
+  &.divider-vertical {
+    border-top: none;
+    border-left: 1px solid $vrgt-light-gray;
+    width: 0;
+    height: 100%;
+    margin: 0 $spacing-md;
+  }
+
+  &.divider-text {
+    display: flex;
+    align-items: center;
+    color: $vrgt-gray;
+    margin: $spacing-lg 0;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid $vrgt-light-gray;
+    }
+
+    &::before {
+      margin-right: $spacing-md;
+    }
+
+    &::after {
+      margin-left: $spacing-md;
+    }
+  }
+}
+
+// ════════ ALERT STYLES ════════
+
+.alert {
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  border-left: 4px solid;
+
+  &.alert-info {
+    background-color: rgba($vrgt-info, 0.08);
+    color: darken($vrgt-info, 20%);
+    border-left-color: $vrgt-info;
+  }
+
+  &.alert-success {
+    background-color: rgba($vrgt-success, 0.08);
+    color: darken($vrgt-success, 20%);
+    border-left-color: $vrgt-success;
+  }
+
+  &.alert-warning {
+    background-color: rgba($vrgt-warning, 0.08);
+    color: darken($vrgt-warning, 20%);
+    border-left-color: $vrgt-warning;
+  }
+
+  &.alert-danger {
+    background-color: rgba(#E74C3C, 0.08);
+    color: darken(#E74C3C, 20%);
+    border-left-color: #E74C3C;
+  }
+
+  p {
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  .close-btn {
+    float: right;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: $transition-smooth;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// ════════ PAGINATION STYLES ════════
+
+.pagination {
+  display: flex;
+  gap: $spacing-sm;
+  justify-content: center;
+  margin: $spacing-lg 0;
+
+  .page-item {
+    .page-link {
+      @include vrgt-button($vrgt-light-purple, $vrgt-charcoal);
+      min-width: 40px;
+      text-align: center;
+      padding: 8px 12px;
+
+      &.active {
+        @include vrgt-button($vrgt-medium-purple);
+      }
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: $vrgt-light-purple;
+        }
+      }
+    }
+  }
+}
+
+// ════════ TEXT UTILITIES ════════
+
+.text-primary {
+  color: $vrgt-medium-purple;
+}
+
+.text-secondary {
+  color: $vrgt-teal;
+}
+
+.text-success {
+  color: $vrgt-success;
+}
+
+.text-warning {
+  color: $vrgt-warning;
+}
+
+.text-danger {
+  color: #E74C3C;
+}
+
+.text-muted {
+  color: $vrgt-gray;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// ════════ RESPONSIVE UTILITIES ════════
+
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    padding: 12px 16px;
+
+    &.btn-sm {
+      min-height: 36px;
+      padding: 8px 12px;
+    }
+
+    &.btn-lg {
+      min-height: 48px;
+      padding: 12px 24px;
+    }
+  }
+
+  .card {
+    padding: $spacing-md;
+  }
+
+  .form-group {
+    margin-bottom: $spacing-md;
+  }
+}
+
+// ════════ DARK MODE SUPPORT ════════
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+
+    &:hover {
+      background: #262626;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-title {
+      color: white;
+    }
+
+    .card-subtitle {
+      color: #a0a0a0;
+    }
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  }
+
+  .card-footer {
+    background: rgba(255, 255, 255, 0.08);
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &::placeholder {
+      color: #666;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($vrgt-medium-purple, 0.2);
+    }
+  }
+
+  .form-label {
+    color: #e0e0e0;
+  }
+
+  .divider {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .divider-vertical {
+    border-left-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// ════════ ACCESSIBILITY ════════
+
+// High Contrast Mode Support
+@media (prefers-contrast: more) {
+  .btn {
+    border-width: 2px;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    border-width: 2px;
+  }
+
+  .divider {
+    border-top-width: 2px;
+  }
+}
+
+// Reduced Motion Support
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .card,
+  .form-input,
+  .form-textarea,
+  .form-select {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
