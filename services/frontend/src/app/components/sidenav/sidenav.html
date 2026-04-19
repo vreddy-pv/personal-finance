@@ -1,27 +1,85 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true">
-    <mat-toolbar>Menu</mat-toolbar>
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <img [src]="vrgtLogo" alt="VRGT Logo" class="sidebar-logo">
+    </div>
+
+    <!-- Navigation Menu -->
     <mat-nav-list>
-      <a mat-list-item routerLink="/">Dashboard</a>
-      <a mat-list-item routerLink="/transactions">Transactions</a>
-      <a mat-list-item routerLink="/admin" *ngIf="isAdmin">Admin</a>
+      <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/transactions" routerLinkActive="active">
+        <mat-icon matListItemIcon>receipt_long</mat-icon>
+        <span matListItemTitle>Transactions</span>
+      </a>
+      <a mat-list-item routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">
+        <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
+        <span matListItemTitle>Admin</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <!-- VRGT Branded Toolbar -->
+    <mat-toolbar class="vrgt-toolbar">
+      <!-- Menu Toggle -->
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()">
+        (click)="drawer.toggle()"
+        class="menu-button">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Personal Finance Manager</span>
+
+      <!-- App Title -->
+      <div class="toolbar-title">
+        <span class="app-name">VRGT</span>
+        <span class="app-subtitle">Finance Manager</span>
+      </div>
+
       <span class="spacer"></span>
-      <button mat-icon-button (click)="openDialog()">
-        <mat-icon>add</mat-icon>
+
+      <!-- Add Transaction Button -->
+      <button
+        mat-icon-button
+        (click)="openDialog()"
+        matTooltip="Add Transaction"
+        class="action-button">
+        <mat-icon>add_circle</mat-icon>
       </button>
+
+      <!-- User Profile Menu -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <div class="user-menu-header" *ngIf="user">
+          <div class="user-name">{{ user.username }}</div>
+          <div class="user-email">{{ user.email }}</div>
+          <mat-divider></mat-divider>
+        </div>
+        <button mat-menu-item *ngIf="isAdmin">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <span>Admin Panel</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
     </mat-toolbar>
+
+    <!-- Main Content Area -->
     <div class="content">
       <router-outlet></router-outlet>
     </div>
