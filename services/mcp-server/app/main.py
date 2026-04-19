@@ -31,10 +31,18 @@ async def register(username: str, email: str, password: str, role: str = "USER")
 
 @app.tool()
 def login() -> str:
-    """Redirects user to the external login service for authentication."""
-    # The callback now points to the login service itself, which will display the token.
+    """Start the login flow. Returns a login URL for the user to authenticate via the login service."""
     login_url = f"http://localhost:8001/login-form?callback=http://localhost:8001/token-display"
-    return f"Please login here: [Click to Login]({login_url}). After logging in, you will be given a token. Please call the `set_token` tool with the provided token."
+    return (
+        f"🔐 **Please log in to continue.**\n\n"
+        f"👉 Open this URL in your browser: {login_url}\n\n"
+        f"After logging in, you will see your token on screen.\n"
+        f"Copy it and tell me: **'set token to <your-token>'**\n\n"
+        f"Available accounts:\n"
+        f"  • testpfuser1 / test123\n"
+        f"  • testpfuser2 / test123\n"
+        f"  • admin / admin123 (admin access)"
+    )
 
 
 @app.tool()
@@ -46,25 +54,10 @@ async def logout() -> str:
 
 @app.tool()
 def set_token(token: str) -> str:
-    """Sets the authentication token for the session."""
+    """Sets the authentication token after the user has logged in via the login service."""
     global AUTH_TOKEN
     AUTH_TOKEN = token
-    return "Token set successfully."
-
-@app.tool()
-async def authenticate_admin(username: str, password: str) -> str:
-    """Authenticates as admin user and sets token. Use username: admin, password: admin123"""
-    global AUTH_TOKEN
-    async with httpx.AsyncClient() as client:
-        payload = {"username": username, "password": password}
-        res = await client.post(f"{BASE_URL}/api/auth/authenticate", json=payload)
-        if res.status_code == 200:
-            data = res.json()
-            AUTH_TOKEN = data.get("token")
-            role = data.get("role", "USER")
-            return f"✅ Authenticated as {username} ({role}). Token set successfully."
-        else:
-            return f"❌ Authentication failed: {res.text}"
+    return "✅ Token set. You are now authenticated."
 
 
 
@@ -73,7 +66,7 @@ async def authenticate_admin(username: str, password: str) -> str:
 async def get_all_transactions() -> str:
     """Fetch all transactions from the personal finance service."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         res = await client.get(f"{BASE_URL}/api/transactions")
@@ -91,7 +84,7 @@ async def get_all_transactions() -> str:
 async def get_all_categories() -> str:
     """Fetch all categories from the personal finance service."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         res = await client.get(f"{BASE_URL}/api/categories")
@@ -108,7 +101,7 @@ async def get_all_categories() -> str:
 async def add_transaction(date: str, description: str, amount: float, category_name: str) -> str:
     """Adds a new transaction."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         # Create or get category
@@ -144,7 +137,7 @@ async def add_transaction(date: str, description: str, amount: float, category_n
 async def update_transaction(transaction_id: int, date: str, description: str, amount: float, category_name: str) -> str:
     """Updates an existing transaction."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         # Create or get category
@@ -180,7 +173,7 @@ async def update_transaction(transaction_id: int, date: str, description: str, a
 async def delete_transaction(transaction_id: int) -> str:
     """Deletes a transaction."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         res = await client.delete(f"{BASE_URL}/api/transactions/{transaction_id}")
@@ -191,7 +184,7 @@ async def delete_transaction(transaction_id: int) -> str:
 async def delete_user(username: str) -> str:
     """Deletes a user."""
     if not AUTH_TOKEN:
-        return "You must be logged in to perform this action. Use the 'login' tool."
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         res = await client.delete(f"{BASE_URL}/api/users/{username}")
@@ -202,7 +195,7 @@ async def delete_user(username: str) -> str:
 async def get_admin_summary() -> str:
     """Get admin financial summary - requires ADMIN authentication. Shows total transactions, income, expenses, and category breakdown."""
     if not AUTH_TOKEN:
-        return "❌ You must be logged in as ADMIN. Use 'authenticate_admin' tool with admin/admin123"
+        return "🔐 You are not authenticated. Please use the 'login' tool to get your login URL, then provide your token using 'set_token'. Use admin/admin123 credentials for admin summary access."
     headers = {"Authorization": f"Bearer {AUTH_TOKEN}"}
     async with httpx.AsyncClient(headers=headers) as client:
         try:
