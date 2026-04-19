@@ -8,6 +8,10 @@ app = FastAPI()
 # Base URL for the Spring Boot backend
 BASE_URL = "http://localhost:8080"
 
+@app.get("/health")
+async def health():
+    return {"status": "UP"}
+
 # Serve the static login form
 @app.get("/login-form", response_class=FileResponse)
 async def login_form_page():

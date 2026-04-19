@@ -43,7 +43,7 @@ export class AddTransactionDialogComponent implements OnInit {
       date: [this.data?.date || ''],
       description: [this.data?.description || ''],
       amount: [this.data?.amount || ''],
-      category: [this.data?.category?.name || ''],
+      category: [this.data?.category?.id || ''],
       newCategory: [''],
       type: [this.data?.type || ''],
     });
@@ -65,22 +65,26 @@ export class AddTransactionDialogComponent implements OnInit {
   save() {
     const { date, description, amount, category, newCategory, type } = this.form.value;
     const isNewCategory = category === 'Other';
-    const categoryToSave = isNewCategory ? newCategory : category;
 
-    const transaction = {
+    let transaction: any = {
       id: this.data?.id,
       date,
       description,
       amount,
-      category: { name: categoryToSave },
       type
     };
 
     if (isNewCategory) {
-      this.apiService.addCategory({ name: categoryToSave }).subscribe(() => {
+      transaction.category = { name: newCategory };
+      this.apiService.addCategory({ name: newCategory }).subscribe(() => {
         this.saveTransaction(transaction);
       });
+    } else if (category) {
+      const selectedCategory = this.categories.find(c => c.id === category);
+      transaction.category = selectedCategory || { id: category };
+      this.saveTransaction(transaction);
     } else {
+      transaction.category = null;
       this.saveTransaction(transaction);
     }
   }

@@ -1,8 +1,23 @@
-<div>
-  <h2>Financial Summary</h2>
-  <div>
-    <p>Total Income: {{ totalIncome | currency }}</p>
-    <p>Total Expenses: {{ totalExpenses | currency }}</p>
-    <p>Net Balance: {{ netBalance | currency }}</p>
-  </div>
-</div>
+<mat-card class="summary-card">
+  <mat-card-header>
+    <mat-card-title>Financial Summary</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="summary-content">
+    <div class="summary-row income-row">
+      <span class="summary-label">Total Income</span>
+      <span class="summary-value income">{{ totalIncome | currency }}</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-row expense-row">
+      <span class="summary-label">Total Expenses</span>
+      <span class="summary-value expense">{{ totalExpenses | currency }}</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-row balance-row">
+      <span class="summary-label">Net Balance</span>
+      <span class="summary-value" [ngClass]="{ positive: netBalance >= 0, negative: netBalance < 0 }">
+        {{ netBalance | currency }}
+      </span>
+    </div>
+  </mat-card-content>
+</mat-card>

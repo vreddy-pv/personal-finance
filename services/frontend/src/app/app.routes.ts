@@ -17,4 +17,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
+  { path: 'transactions', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '' },
 ];

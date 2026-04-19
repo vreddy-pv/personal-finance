@@ -1,1 +1,202 @@
-/* Add your styles here */
+// Design Tokens
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+$color-income: #4caf50;
+$color-expense: #f44336;
+$color-neutral: #2196f3;
+$color-text-primary: #212121;
+$color-text-secondary: #757575;
+$color-divider: #e0e0e0;
+$color-background-light: #fafafa;
+
+$elevation-1: 0 2px 4px rgba(0, 0, 0, 0.1);
+$elevation-2: 0 4px 8px rgba(0, 0, 0, 0.12);
+$elevation-3: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+$transition-smooth: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+// Summary Card Container
+.summary-card {
+  border-radius: 8px;
+  box-shadow: $elevation-1;
+  transition: $transition-smooth;
+  background: #ffffff;
+  margin-bottom: $spacing-lg;
+
+  &:hover {
+    box-shadow: $elevation-2;
+    transform: translateY(-2px);
+  }
+
+  mat-card-header {
+    padding: $spacing-lg;
+    border-bottom: 1px solid $color-divider;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px 8px 0 0;
+
+    mat-card-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// Summary Content
+.summary-content {
+  padding: $spacing-lg !important;
+}
+
+// Summary Row
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md 0;
+  transition: $transition-smooth;
+
+  &:hover {
+    padding-left: $spacing-sm;
+    padding-right: $spacing-sm;
+    background: $color-background-light;
+    border-radius: 4px;
+  }
+
+  &.income-row:hover {
+    background: rgba($color-income, 0.05);
+  }
+
+  &.expense-row:hover {
+    background: rgba($color-expense, 0.05);
+  }
+
+  &.balance-row:hover {
+    background: rgba($color-neutral, 0.05);
+  }
+}
+
+// Summary Label
+.summary-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Summary Value
+.summary-value {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+
+  &.income {
+    color: $color-income;
+  }
+
+  &.expense {
+    color: $color-expense;
+  }
+
+  &.positive {
+    color: $color-income;
+  }
+
+  &.negative {
+    color: $color-expense;
+  }
+}
+
+// Divider
+.summary-divider {
+  height: 1px;
+  background: $color-divider;
+  margin: $spacing-sm 0;
+}
+
+// Responsive Design
+@media (max-width: 600px) {
+  .summary-card {
+    mat-card-header {
+      padding: $spacing-md;
+    }
+  }
+
+  .summary-content {
+    padding: $spacing-md !important;
+  }
+
+  .summary-row {
+    padding: $spacing-sm 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
+  }
+
+  .summary-value {
+    font-size: 16px;
+  }
+}
+
+// Animation: Card entrance
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-card {
+  animation: cardSlideIn 400ms ease-out;
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .summary-card {
+    background: #1e1e1e;
+    color: #e0e0e0;
+
+    mat-card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .summary-divider {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .summary-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .summary-label {
+      color: #a0a0a0;
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .summary-card {
+    transition: none;
+    animation: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .summary-row {
+    transition: none;
+  }
+}
