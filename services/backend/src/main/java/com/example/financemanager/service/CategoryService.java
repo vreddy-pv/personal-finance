@@ -14,6 +14,10 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category addCategory(Category category) {
+        if (category == null || category.getName() == null || category.getName().isBlank()) {
+            throw new IllegalArgumentException("Category name cannot be null or empty");
+        }
+
         String upperCaseName = category.getName().toUpperCase();
         return categoryRepository.findByNameIgnoreCase(upperCaseName)
                 .orElseGet(() -> {

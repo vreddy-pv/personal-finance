@@ -80,8 +80,12 @@ export class AddTransactionDialogComponent implements OnInit {
         this.saveTransaction(transaction);
       });
     } else if (category) {
-      const selectedCategory = this.categories.find(c => c.id === category);
-      transaction.category = selectedCategory || { id: category };
+      const selectedCategory = this.categories.find(c => c.id === parseInt(category));
+      if (selectedCategory) {
+        transaction.category = selectedCategory;
+      } else {
+        transaction.category = null;
+      }
       this.saveTransaction(transaction);
     } else {
       transaction.category = null;
