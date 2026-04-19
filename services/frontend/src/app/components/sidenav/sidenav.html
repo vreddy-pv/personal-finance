@@ -39,10 +39,9 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
 
-      <!-- App Title -->
+      <!-- App Title with Logo -->
       <div class="toolbar-title">
-        <span class="app-name">VRGT</span>
-        <span class="app-subtitle">Finance Manager</span>
+        <img [src]="vrgtLogo" alt="VRGT Logo" class="toolbar-logo" (error)="onLogoError()">
       </div>
 
       <span class="spacer"></span>
