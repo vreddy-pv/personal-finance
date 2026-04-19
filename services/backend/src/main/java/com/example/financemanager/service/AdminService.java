@@ -28,7 +28,7 @@ public class AdminService {
 
         for (Transaction t : allTransactions) {
             BigDecimal amount = t.getAmount();
-            String type = t.getType() != null ? t.getType() : "EXPENSE";
+            String type = t.getType() != null ? t.getType().name() : "EXPENSE";
             String categoryName = t.getCategory() != null ? t.getCategory().getName() : "Uncategorized";
 
             if ("INCOME".equalsIgnoreCase(type)) {
