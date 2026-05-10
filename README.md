@@ -1,4 +1,6 @@
-# Personal Finance Application
+# VRGT Personal Finance Application
+
+**VRGT – Vertex Realm Global Technologies** | *At the peak of every digital realm.*
 
 A modern, **multi-service personal finance management application** built with Spring Boot, Angular, FastAPI, and Claude AI integration.
 
@@ -76,9 +78,12 @@ personal-finance/
 │   ├── frontend/         (Angular)
 │   ├── login/            (FastAPI)
 │   └── mcp-server/       (FastAPI)
+├── docs/
+│   └── adr/              (Architecture Decision Records)
 ├── scripts/              (Automation)
 ├── docker-compose.yml    (Local orchestration)
 ├── CLAUDE.md             (Development guide)
+├── BRANDING.md           (VRGT brand identity guide)
 └── .env.example          (Configuration template)
 ```
 
@@ -287,7 +292,9 @@ For comprehensive Docker guide, see **[DOCKER.md](./DOCKER.md)**
 ## 📚 Documentation
 
 - **[CLAUDE.md](./CLAUDE.md)** - Development guide & commands
+- **[BRANDING.md](./BRANDING.md)** - VRGT brand identity, color palette & design system
 - **[DOCKER.md](./DOCKER.md)** - Docker setup & deployment guide
+- **[docs/adr/](./docs/adr/)** - Architecture Decision Records
 - **[Backend README](./services/backend/README.md)** - Spring Boot docs
 - **[Frontend README](./services/frontend/README.md)** - Angular docs
 - **[Login Service README](./services/login/README.md)** - Auth docs
